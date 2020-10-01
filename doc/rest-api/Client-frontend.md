@@ -13,17 +13,17 @@ Please see the [Authentication](#authentication) section for more details.
 1. The relevant endpoint has to be configured on the server side.
 See the [configuration section](#configuration).
 1. A list of provided actions is documented with Swagger.
-See the beatiful [specification](http://mongooseim.readthedocs.io/en/latest/swagger/index.html?client=true).
+See the beautiful [specification](http://mongooseim.readthedocs.io/en/latest/swagger/index.html?client=true).
 
 ## Authentication
 
 The only possible authentication method for the time being is *Basic Authentication*.
-The *userid* part is user's *bare JID* and the password is the same as that used to
+The *userid* part is user's *bare JID* and the password are the same as the ones used to
 register the user's account.
 
 ### Bare JID
 
-To ilustrate what bare JIDs are, let's assume your MongooseIM server's hostname is
+To illustrate what bare JIDs are, let's assume your MongooseIM server's hostname is
 *wonderland.com* and the user is *alice*.
 In this case the bare JID for her is just: *alice@wonderland.com*.
 This value should be used as the *userid* in the Basic Authentication method for all the REST API calls.
@@ -60,21 +60,21 @@ see the relevant documentation in the [Listener modules](../advanced-configurati
 REST API can fetch messages for [Smack](https://github.com/igniterealtime/Smack/blob/master/documentation/extensions/properties.md#stanza-properties) Stanza Properties.
 
 For example if we have properties in the stanza like:
-  ```
-      <message xml:lang='en' to='alice@localhost' id='123' type='chat'>
-        <body xml:lang='en_US'>Hi!</body>
-        <properties xmlns="http://www.jivesoftware.com/xmlns/xmpp/properties"
-            <property>
-                <name>some_number</name>
-                <value type='integer'>123</value>
-            <property>
-            <property>
-                <name>some_string</name>
-                <value type='string'>abc</value>
-            <property>
-        </properties>
-      </message>
-  ```
+```xml
+    <message xml:lang='en' to='alice@localhost' id='123' type='chat'>
+      <body xml:lang='en_US'>Hi!</body>
+      <properties xmlns="http://www.jivesoftware.com/xmlns/xmpp/properties"
+          <property>
+              <name>some_number</name>
+              <value type='integer'>123</value>
+          <property>
+          <property>
+              <name>some_string</name>
+              <value type='string'>abc</value>
+          <property>
+      </properties>
+    </message>
+```
 then in the final json message these properties will be converted to json map without tag names and all types will be taken as string:
 ```
     {   "to": "alice@localhost",
