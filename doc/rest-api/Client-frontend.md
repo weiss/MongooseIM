@@ -30,31 +30,16 @@ This value should be used as the *userid* in the Basic Authentication method for
 
 ## Configuration
 
-In order to enable the REST API, the following configuration should be added to the
-*listen* section in *mongooseim.cfg* file.
+In order to enable the REST API, a listener has to be configured in the
+`mongooseim.toml` file.
 
-```erlang
-  { 8089 , ejabberd_cowboy, [
-      {num_acceptors, 10},
-      {max_connections, 1024},
-      {compress, true},
-      {ssl, [{certfile, "priv/ssl/fake_cert.pem"}, {keyfile, "priv/ssl/fake_key.pem"}, {password, ""}]},
-      {modules, [
-          {"_", "/api/messages/[:with]", mongoose_client_api_messages, []},
-          {"_", "/api/rooms/:id/messages",    mongoose_client_api_rooms_messages, []},
-          {"_", "/api/rooms/:id/users/[:user]",    mongoose_client_api_rooms_users, []},
-          {"_", "/api/rooms/[:id]",    mongoose_client_api_rooms, []}
-      ]}
-  ]}
-```
-
-The most important part of the above example is the *modules* lists where the relevant
-REST API functionalities are enabled and exposed on the given paths.
-By default the REST API is exposed on port 8089 but this can be changed to whatever is more convenient.
-
-For more details about possible `ejabberd_cowboy` configuration parameters please
-see the relevant documentation in the [Listener modules](../advanced-configuration/Listener-modules.md#http-based-services-bosh-websocket-rest-ejabberd_cowboy).
-
+Functionalities have to be enabled and exposed for handlers on given paths, as 
+shown in the [REST API configuration example](../advanced-configuration/listen.md#example-3-client-api).
+In order to get the client REST API up and running simply copy the provided example.
+For more details about possible configuration parameters please see the relevant
+ documentation of the [listeners](../advanced-configuration/listen.md),
+in particular the [client REST API handlers](../advanced-configuration/listen.md#handler-types-rest-api-client)
+section.
 
 ## Smack library support
 REST API can fetch messages for [Smack](https://github.com/igniterealtime/Smack/blob/master/documentation/extensions/properties.md#stanza-properties) Stanza Properties.
