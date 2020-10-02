@@ -3055,9 +3055,10 @@ maybe_enter_resume_session(StateData) ->
 
 maybe_enter_resume_session(undefined, StateData) ->
     {stop, normal, StateData};
-maybe_enter_resume_session(_SMID, #state{} = SD) ->
+maybe_enter_resume_session(_SMID, #state{sockmod = SockMod, socket = Socket} = SD) ->
     NSD = case SD#state.stream_mgmt_resume_tref of
               undefined ->
+                  SockMod:close(Socket),
                   Seconds = timer:seconds(SD#state.stream_mgmt_resume_timeout),
                   TRef = erlang:send_after(Seconds, self(), resume_timeout),
                   NewState = SD#state{stream_mgmt_resume_tref = TRef},
