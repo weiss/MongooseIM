@@ -7,7 +7,7 @@ WebSockets and BOSH, MongooseIM provides parts of its functionality over a REST 
 
 1. Every request has to be authenticated.
 Please see the [Authentication](#authentication) section for more details.
-1. We advise that this API is served over HTTPS.
+1. We strongly advise that this API is served over HTTPS.
 1. User registration has to be done via other methods (f.e. using the
 [REST API for backend services](Administration-backend.md)).
 1. The relevant endpoint has to be configured on the server side.
@@ -17,24 +17,28 @@ See the beautiful [specification](http://mongooseim.readthedocs.io/en/latest/swa
 
 ## Authentication
 
-The only possible authentication method for the time being is *Basic Authentication*.
-The *userid* part is the user's *bare JID* and the password are the same as the ones used to
-register the user's account.
+MongooseIM uses *Basic Authentication* as an authentication method for the REST API.
 
-### Bare JID
+*Basic authentication* is a simple authentication scheme built into the HTTP protocol.
+Each HTTP request to the client REST API has to contain the Authorization header
+with the word `Basic` followed by a space and a base64-encoded string
+`username@host:password`, where:
 
-To illustrate what bare JIDs are, let's assume your MongooseIM server's hostname is
-*wonderland.com* and the user is *alice*.
-In this case the bare JID for her is just: *alice@wonderland.com*.
-This value should be used as the *userid* in the Basic Authentication method for all the REST API calls.
+- `username@host` is the user's *bare JID*,
+- `password` is the password used to register the user's account.
+
+For example, to authorize as `alice@localhost` with the password `secret`, the
+client would send a header:
+
+```
+Authorization: Basic YWxpY2VAbG9jYWxob3N0OnNlY3JldA==
+```
 
 ## Configuration
 
-In order to enable the REST API, a listener has to be configured in the
-`mongooseim.toml` file.
+Handlers have to be configured as shown in the [REST API configuration example](../advanced-configuration/listen.md#example-3-client-api)
+to enable REST API.
 
-Functionalities have to be enabled and exposed for handlers on given paths, as 
-shown in the [REST API configuration example](../advanced-configuration/listen.md#example-3-client-api).
 In order to get the client REST API up and running simply copy the provided example.
 For more details about possible configuration parameters please see the relevant
 documentation of the [listeners](../advanced-configuration/listen.md),
