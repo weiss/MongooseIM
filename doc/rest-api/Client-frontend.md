@@ -18,7 +18,7 @@ See the beautiful [specification](http://mongooseim.readthedocs.io/en/latest/swa
 ## Authentication
 
 The only possible authentication method for the time being is *Basic Authentication*.
-The *userid* part is user's *bare JID* and the password are the same as the ones used to
+The *userid* part is the user's *bare JID* and the password are the same as the ones used to
 register the user's account.
 
 ### Bare JID
@@ -37,7 +37,7 @@ Functionalities have to be enabled and exposed for handlers on given paths, as
 shown in the [REST API configuration example](../advanced-configuration/listen.md#example-3-client-api).
 In order to get the client REST API up and running simply copy the provided example.
 For more details about possible configuration parameters please see the relevant
- documentation of the [listeners](../advanced-configuration/listen.md),
+documentation of the [listeners](../advanced-configuration/listen.md),
 in particular the [client REST API handlers](../advanced-configuration/listen.md#handler-types-rest-api-client)
 section.
 
